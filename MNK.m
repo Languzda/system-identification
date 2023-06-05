@@ -2,16 +2,15 @@ clear all, close all, clc
 
 %% load data
 load flutter.dat;
-u = flutter(:, 1);
-y = flutter(:, 2);
+u = flutter(:, 1); % pomiar sygnalu wymuszajacego
+y = flutter(:, 2); % pomiar sygnału wyjsciowego
 
 %% 1 rzad
+clearPls();
 
-close all, clc;
-
-yN = y(2:end);
-Phi = [y(1:end-1), u(1:end-1)];
-theta = (Phi'*Phi)^-1 * Phi'*yN;
+yN = y(2:end); % wektor danych wyjsciowych
+Phi = [y(1:end-1), u(1:end-1)]; % macierz regresji
+theta = (Phi'*Phi)^-1 * Phi'*yN; % wektor parametrów
 
 a = theta(1);
 b = theta(2);
@@ -20,8 +19,7 @@ processAndPlotData(u, y, yN, Phi, theta, a, b)
 
 
 %% 2 rzad
-
-close all, clc;
+clearPls();
 
 yN = y(3:end); % wektor danych wyjsciowych
 
@@ -31,17 +29,15 @@ theta = (Phi' * Phi)^-1 * Phi' * yN; % wektor parametrów
 a = theta(1:2);
 b = theta(3:4);
 
-
 processAndPlotData(u, y, yN, Phi, theta, a, b)
 
 
 %% Założenie nadmiarowego rzedu B
+clearPls();
 
-close all, clc;
-
-yN = y(3:end);
-Phi = [-y(2:end-1), -y(1:end-2), u(3:end),u(2:end-1), u(1:end-2)];
-theta = (Phi' * Phi)^-1 * Phi' * yN;
+yN = y(3:end); % wektor danych wyjsciowych
+Phi = [-y(2:end-1), -y(1:end-2), u(3:end),u(2:end-1), u(1:end-2)]; % macierz regresji
+theta = (Phi' * Phi)^-1 * Phi' * yN; % wektor parametrów
 
 a = theta(1:2);
 b = theta(3:5);
@@ -58,7 +54,7 @@ function plotComparison(y, yTr, preY, Bpre, Btrans, h, g)
     hold on;
     plot(yTr);
     hold off;
-    title('Porownanie szcowanym modelem');
+    title('Porownanie z szacowanym modelem');
     legend("y","model");
 
     % Porownanie z predykcja
@@ -133,3 +129,8 @@ function processAndPlotData(u, y, yN, Phi, theta, a, b)
     sys
 end
 
+function clearPls()
+    clear a b Phi yN theta;
+    close all;
+    clc;
+end
