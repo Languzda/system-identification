@@ -112,6 +112,10 @@ function processAndPlotData(u, y, yN, Phi, theta, a, b)
     % Predykcja
     preY = Phi * theta;
 
+    startPoint = size(u) - size(yN);
+
+    startPoint = startPoint(1) + 1 ;
+
     % Model
     dend = [1, a'];
     numd = [b'];
@@ -124,6 +128,10 @@ function processAndPlotData(u, y, yN, Phi, theta, a, b)
 
     % Błąd predykcji
     VN = (yN - Phi * theta)' * (yN - Phi * theta);
+
+    figure;
+    stem(u(startPoint:end),Bpre);
+    title("korelacja błędu Epsilon")
 
     % Odpowiedź skokowa i impulsowa
     g = impulse(sys);
