@@ -93,17 +93,19 @@ function plotComparison(y, yTr, preY, Bpre, Btrans, h, g)
     title('Błąd z modelu');
     legend("Błąd z modelu")
 
+
+
     % Wykresy odpowiedzi skokowej i impulsowej
     figure;
     subplot(2,1,1);
-    plot(h);
+    plot(g);
     title('Impulse');
-    legend("h");
+    legend("g");
 
     subplot(2,1,2);
-    plot(g);
+    plot(h);
     title('step');
-    legend("g");
+    legend("h");
 end
 
 function processAndPlotData(u, y, yN, Phi, theta, a, b)
@@ -124,8 +126,8 @@ function processAndPlotData(u, y, yN, Phi, theta, a, b)
     VN = (yN - Phi * theta)' * (yN - Phi * theta);
 
     % Odpowiedź skokowa i impulsowa
-    h = impulse(sys);
-    g = step(sys);
+    g = impulse(sys);
+    h = step(sys);
 
     % Rysowanie wykresów
     plotComparison(y, yTr, preY, Bpre, Btrans, h, g);
