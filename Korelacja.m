@@ -40,6 +40,7 @@ plot(t_g, g2);
 hold on;
 plot(t_g, [0; g2(1:M-1)]);
 legend('g(t)', 'g(t) - przesunięty');
+title("Impulsowa");
 xlabel('t');
 ylabel('y');
 
@@ -55,5 +56,6 @@ plot(t_g, h);
 hold on;
 plot(t_g, [0; h(1:M-1)]);
 legend('h(t)', 'h(t) - przesunięty');
+title("Skokowa");
 xlabel('t');
 ylabel('y');
