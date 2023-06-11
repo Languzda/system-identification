@@ -44,6 +44,19 @@ b = theta(3:5);
 
 processAndPlotData(u, y, yN, Phi, theta, a, b)
 
+%% MNK3
+
+clearPls();
+yN = y(4:end);
+Phi = [y(3:end-1), y(2:end-2), y(1:end-3), u(3:end-1), u(2:end-2), u(1:end-3)];
+theta = (Phi' * Phi)^-1 * Phi' * yN;
+
+
+%Yr = Phi * theta
+a = theta(1:3);
+b = theta(4:6);
+
+processAndPlotData(u, y, yN, Phi, theta, a, b)
 
 %% funkcje
 function plotComparison(y, yTr, preY, Bpre, Btrans, h, g)
